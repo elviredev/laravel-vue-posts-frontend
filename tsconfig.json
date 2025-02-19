@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",               // Support des Promises et async/await
+    "module": "ESNext",               // Compatible avec ViteJS
+    "lib": ["ES2017", "DOM"],         // Bibliothèques nécessaires
+    "moduleResolution": "Node",       // Résolution des modules comme Node.js
+    "strict": true,                   // Active des vérifications strictes
+    "esModuleInterop": true,          // Améliore la compatibilité des modules
+    "skipLibCheck": true,             // Ignore la vérification des types des dépendances
+    "baseUrl": ".",                   // Définit la racine du projet
+    "paths": {
+      "@/*": ["src/*"]                // Alias pour le dossier src
+    }
+  },
+  "include": ["src/**/*", "env.d.ts"], // Inclut tous les fichiers TypeScript dans src
+  "exclude": ["node_modules"]         // Exclut le dossier node_modules
+}

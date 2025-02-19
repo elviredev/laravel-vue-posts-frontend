@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.formkit-input[type="submit"] {
+  @apply bg-pink-700 text-white hover:bg-pink-800 border-none focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-pink-600 dark:border-none dark:hover:bg-pink-700 dark:focus:ring-pink-800 cursor-pointer;
+}
+
+.formkit-input {
+  @apply mt-2;
+}
