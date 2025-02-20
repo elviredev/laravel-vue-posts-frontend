@@ -62,7 +62,7 @@ const router = createRouter({
         if (useAuthStore().isLoggedIn) {
           try {
             // Vérifier si l'utilisateur est l'auteur du post
-            const response = await axiosInstance.get(`/dashboard/posts/${slug}`);
+            const response = await axiosInstance.get(`/api/dashboard/posts/${slug}`);
             const post = response.data.data;
 
             // Si l'utilisateur n'est pas l'auteur, on redirige

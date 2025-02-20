@@ -2,9 +2,10 @@ import axios from 'axios'
 import router from "@/router";
 import {useAuthStore} from "@/store/auth";
 import {useToast} from "vue-toast-notification";
+import { API_BASE_URL } from "@/config";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: API_BASE_URL,
   // authentification basée sur la session
   withCredentials: true,
   withXSRFToken: true,

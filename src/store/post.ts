@@ -22,7 +22,7 @@ export const usePostStore = defineStore("post", () => {
     const getPosts = async (page: number) => {
         isLoading.value = true;
         try {
-            const { data } = await axiosInstance.get(`/dashboard/posts?page=${page}`);
+            const { data } = await axiosInstance.get(`/api/dashboard/posts?page=${page}`);
             postsCollection.value = data
             totalPosts.value = data.meta.total_posts;
         } catch (e) {
@@ -35,7 +35,7 @@ export const usePostStore = defineStore("post", () => {
     const getPost = async (slug: string | string[]) => {
         isLoading.value = true;
         try {
-            const { data } = await axiosInstance.get(`/dashboard/posts/${slug}`);
+            const { data } = await axiosInstance.get(`/api/dashboard/posts/${slug}`);
             post.value = data.data;
         } catch (e) {
             console.error(e);
@@ -56,7 +56,7 @@ export const usePostStore = defineStore("post", () => {
         }
 
         try {
-            const response = await axiosInstance.post('/dashboard/posts', formData, {
+            const response = await axiosInstance.post('/api/dashboard/posts', formData, {
                 headers: { "Content-Type": "multipart/form-data" }
             });
             await router.push('/dashboard/posts');
@@ -70,7 +70,7 @@ export const usePostStore = defineStore("post", () => {
     const updatePost = async (slug: string, payload: PostForm, node?: FormKitNode) => {
         if (post.value) {
             try {
-                await axiosInstance.put(`/dashboard/posts/${slug}`, payload);
+                await axiosInstance.put(`/api/dashboard/posts/${slug}`, payload);
                 await router.push('/dashboard/posts');
             } catch (e) {
                 if (e instanceof AxiosError && e.response?.status === 422) {
@@ -83,7 +83,7 @@ export const usePostStore = defineStore("post", () => {
     const deletePost = async (page: number, slug: string | string[]) => {
         isLoading.value = true;
         try{
-            await axiosInstance.delete(`/dashboard/posts/${slug}`);
+            await axiosInstance.delete(`/api/dashboard/posts/${slug}`);
 
             // Récupération des posts après suppression
             await getPosts(page)
@@ -104,7 +104,7 @@ export const usePostStore = defineStore("post", () => {
         formData.append("image", imageFile);
 
         try {
-            const { data } = await axiosInstance.post(`/dashboard/posts/${slug}/image`, formData, {
+            const { data } = await axiosInstance.post(`/api/dashboard/posts/${slug}/image`, formData, {
                 headers: { "Content-Type": "multipart/form-data" }
             });
 
@@ -120,7 +120,7 @@ export const usePostStore = defineStore("post", () => {
 
     const deletePostImage = async (slug: string) => {
         try {
-            await axiosInstance.delete(`/dashboard/posts/${slug}/image`);
+            await axiosInstance.delete(`/api/dashboard/posts/${slug}/image`);
             if (post.value) {
                 post.value.image = null;
             }

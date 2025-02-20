@@ -7,6 +7,7 @@ import axiosInstance from "@/lib/axios";
 import router from "@/router";
 import { AxiosError } from "axios";
 import { LoginForm } from "@/types";
+import { API_BASE_URL } from "@/config";
 
 export const useAuthStore = defineStore("auth", () => {
     // state
@@ -16,11 +17,11 @@ export const useAuthStore = defineStore("auth", () => {
     //methods
     const register = async (payload: RegisterForm, node?:FormKitNode) => {
         await axiosInstance.get("/sanctum/csrf-cookie", {
-            baseURL: "http://localhost:8000"
+            baseURL: API_BASE_URL
         })
 
         try {
-            await axiosInstance.post("/register", payload)
+            await axiosInstance.post("/api/register", payload)
             await getUser()
             await router.push("/dashboard")
         } catch (e) {
@@ -32,11 +33,11 @@ export const useAuthStore = defineStore("auth", () => {
 
     const login = async (payload: LoginForm, node?:FormKitNode) => {
         await axiosInstance.get("/sanctum/csrf-cookie", {
-            baseURL: "http://localhost:8000"
+            baseURL: API_BASE_URL
         })
 
         try {
-            await axiosInstance.post("/login", payload)
+            await axiosInstance.post("/api/login", payload)
             await getUser()
             await router.push("/dashboard")
         } catch (e) {
@@ -49,7 +50,7 @@ export const useAuthStore = defineStore("auth", () => {
     // Récupérer les infos du user connecté
     const getUser = async () => {
         try {
-            const response = await axiosInstance.get("/user");
+            const response = await axiosInstance.get("/api/user");
             user.value = response.data;
             isLoggedIn.value = true;
         } catch (e) {
@@ -64,7 +65,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     const logout = async () => {
         try {
-            await axiosInstance.post("/logout");
+            await axiosInstance.post("/api/logout");
             cleanState()
             await router.push('/login')
         } catch (e) {
